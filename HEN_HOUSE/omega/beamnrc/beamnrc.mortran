@@ -4774,11 +4774,11 @@ write(i_log,*) '*********** jcase = ',jcase;
 
 :start_parallel_loop:;
 "*******************************************************************************
-" #PARALLEL_EGS -   If MPI is enabled disable job control file logic and divide
-"                   particle histories evenly among MPI processes.
+" #PARALLEL_EGS -   If NOPJOB is defined disable job control file logic and 
+"                   divide particle histories evenly among MPI processes.
 "*******************************************************************************
 IF( n_parallel > 0 ) [  "Job is part of a parallel run "
-$IF(#,_MPI);
+$IF(#,_NOPJOB);
    n_run = ncase/n_parallel;
    jcase = n_run/$NBATCH;
    IF( jcase < 1 ) [ jcase = 1; n_run = jcase*$NBATCH; ]
@@ -4944,10 +4944,10 @@ ELSE[
 #ifdef HAVE_C_COMPILER;
 ;
 "*******************************************************************************
-" #PARALLEL_EGS -   If MPI is enabled disable original parallelization logic.
+" #PARALLEL_EGS -   If NOPJOB is defined disable original parallelization logic.
 "*******************************************************************************
 IF( n_parallel > 0 ) [ 
-$IFNDEF(#,_MPI);    
+$IFNDEF(#,_NOPJOB);    
    goto :start_parallel_loop:; 
 $ENDIF(#);   
 ]
@@ -5525,11 +5525,11 @@ call egs_finish;     " Finish the simulation "
 #ifdef HAVE_C_COMPILER;
 ;
 "*******************************************************************************
-" #PARALLEL_EGS -   If MPI is enabled disable job control file logic and combine
-"                   runs of MPI processes.
+" #PARALLEL_EGS -   If NOPJOB is enabled disable job control file logic and 
+"                   combine runs of MPI processes.
 "*******************************************************************************
 IF( n_parallel > 0 & ~is_finished ) [
-$IF(#,_MPI);
+$IF(#,_NOPJOB);
    "Get sure that all MPI processes have reached this point "
     $MPI{#, call MPI_BARRIER(MPI_COMM_WORLD, ierr)};
     IOUTLIST=egs_open_file(IOUTLIST,0,1,'.egslst');
