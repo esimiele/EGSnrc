@@ -28,6 +28,7 @@
 "                   Ernesto Mainegra-Hing                                     "
 "                   Frederic Tessier                                          "
 "                   Reid Townson                                              "
+"                   Victor Malkov                                             "
 "                                                                             "
 "#############################################################################"
 "                                                                             "
@@ -1671,7 +1672,14 @@ REPLACE {$VACUUM-ADD-WORK-EM-FIELD;} WITH {;}
 REPLACE {$SET-ANGLES-EM-FIELD;} WITH {;}
 REPLACE {$SET-TVSTEP-EM-FIELD;} WITH {;}
 REPLACE {$ADD-WORK-EM-FIELD;} WITH {;}
-
+REPLACE {$EMFIELD_INITIATE_SET_TUSTEP;} WITH {;}
+REPLACE {;COMIN/EM/;} WITH {;}
+REPLACE {$EMFIELD_PII;} WITH {;}
+REPLACE{$EMFIELD_PI;}WITH{;}
+REPLACE{$EM_FIELD_SS;}WITH{;}
+REPLACE{$ADD_WORK_EM_FIELD;}WITH{;}
+REPLACE{$EMFieldInVacuum;}WITH{;}
+REPLACE{$EM_MACROS_ACTIVE}WITH{.false.}
 ;  "---------- BUFFER FLUSH SEMICOLON ----------"
 
 "------------------------------------------------------------------"
@@ -3418,7 +3426,7 @@ REPLACE {COMIN/GetInput/;} WITH
         ERROR_FLAG,                "0 for no errors, 1 for errors      "
         DELIMETER;                 "Name of the delimeter              "
    character ALLOWED_INPUTS*$STRING32,VALUES_SOUGHT*$STRING32,
-             CHAR_VALUE*$STRING80,DELIMETER*$STRING32;
+             CHAR_VALUE*$STRING256,DELIMETER*$STRING32;
    $REAL     VALUE,DEFAULT,VALUE_MIN,VALUE_MAX;
    $INTEGER  NVALUE,TYPE,NMIN,NMAX,ERROR_FLAG,ERROR_FLAGS,i_errors;
 }
